@@ -1,0 +1,101 @@
+{% if job_details|length != 0 %}
+<div class="border-bottom row" style="margin-bottom: 16px; padding-bottom: 8px">
+  <div class="col-10">
+    {% for job_detail in job_details %}
+    <h4 style="color: rgb(120, 120, 120); margin-bottom: 4px">
+      {{job_detail['title']}}
+    </h4>
+    <div><b>Location: {{job_detail['location']}}</b></div>
+    <br /><br />
+
+    <div><b>Salary: </b>{{job_detail['salary']}}</div>
+    <br /><br />
+    <div>
+      <b>Requirements: </b>
+      <ul>
+        {% for line in job_detail['requirements'].split("\n") %}
+        <li>{{line}}</li>
+        {% endfor %}
+      </ul>
+
+      <div>
+        <b>Responsibilities</b>
+        <ul>
+          {% for line_1 in job_detail['responsibilities'].split("\n") %}
+          <li>{{line_1}}</li>
+          {% endfor %}
+        </ul>
+        {% endfor %}
+      </div>
+      <br /><br />
+
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'error' %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    
+      <div>
+        <h2>Application Forms</h2>
+
+        <form action="{{url_for('application_form')}}" method="POST">
+          <input type="hidden" name="job_id" value="{{job_id}}" />
+          <label for="full_name">Full name:</label><br />
+          <input type="text" id="full_name" name="full_name" value="" /><br />
+          <label for="email">Email:</label><br />
+          <input type="text" id="email" name="email" value="" /><br /><br />
+          <label for="linkedin_url">Linkedin url:</label><br />
+          <input
+            type="text"
+            id="linkedin_url"
+            name="linkedin_url"
+            value=""
+          /><br /><br />
+          <label for="education">Education:</label><br />
+          <input
+            type="text"
+            id="education"
+            name="education"
+            value=""
+          /><br /><br />
+          <label for="work_experience">Work experience:</label><br />
+          <input
+            type="text"
+            id="work_experience"
+            name="work_experience"
+            value=""
+          /><br /><br />
+          <label for="resume_url">Resume:</label><br />
+          <input
+            type="file"
+            id="resume_url"
+            name="resume_url"
+            value=""
+          /><br /><br />
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+    </div>
+    {% else %}
+    <b>Job not found</b>
+    {% endif %}
+  </div>
+</div>
