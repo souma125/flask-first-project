@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Jovian Careers</title>
+    <title>Parineeta Careers</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
@@ -48,7 +48,14 @@
         </div>
       </div>
       <h2 class="text-center mt-2 mb-4">Open Positions</h2>
-  
+      {% if session['loggedin'] != True %}
+      <div class="alert alert-warning" role="alert">
+        You need to login
+        <a href="{{url_for('login')}}" class="alert-link"
+          >before apply on a position</a
+        >. Give it a click if you want to apply.
+      </div>
+      {% endif %}
       <div>{% for job in jobs %} {% include 'jobitem.html' %} {% endfor %}</div>
       <div class="text-center">
         <a

@@ -55,7 +55,7 @@
           method="POST"
           enctype="multipart/form-data"
         >
-          
+          {{ form.hidden_tag() }}
           <input type="hidden" name="job_id" value="{{ job_id }}" />
           <label for="full_name">Full name:</label><br />
           <input type="text" id="full_name" name="full_name" value="" /><br />
